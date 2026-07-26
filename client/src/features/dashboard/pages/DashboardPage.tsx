@@ -3,7 +3,7 @@ import MedicationReminder from "../components/MedicationReminder";
 import RecoveryTimeline from "@/features/recovery/components/RecoveryTimeline";
 import { profile } from "@/features/profile/services/profileData";
 import BabySummary from "@/features/baby/components/BabySummary";
-
+import PregnancyCountdown from "@/features/pregnancy/components/PregnancyCountdown";
 
 export default function DashboardPage() {
     
@@ -27,8 +27,8 @@ export default function DashboardPage() {
       <div className="grid gap-6 lg:grid-cols-2">
 
         <TodaysFocus />
-
         <MedicationReminder />
+        <PregnancyCountdown />
         <div className="mt-8">
         <RecoveryTimeline />
         </div>
