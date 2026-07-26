@@ -1,0 +1,13 @@
+export default function ProfilePage() {
+  return (
+    <div className="space-y-4">
+      <h1 className="text-4xl font-bold text-yellow-600">
+        Profile
+      </h1>
+
+      <p className="text-gray-600">
+        This module is under development.
+      </p>
+    </div>
+  );
+}
