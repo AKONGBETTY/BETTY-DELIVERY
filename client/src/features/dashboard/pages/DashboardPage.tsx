@@ -1,44 +1,27 @@
 import TodaysFocus from "../components/TodaysFocus";
 import MedicationReminder from "../components/MedicationReminder";
-
-import PregnancyStats from "@/features/pregnancy/components/PregnancyStats";
-import PregnancyProgressRing from "@/features/pregnancy/components/PregnancyProgressRing";
 import BabyTodayCard from "@/features/pregnancy/components/BabyTodayCard";
 import DueDateCard from "@/features/pregnancy/components/DueDateCard";
 import BabyDevelopmentCard from "@/features/pregnancy/components/BabyDevelopmentCard";
 import MotherChangesCard from "@/features/pregnancy/components/MotherChangesCard";
 import WeeklyTipCard from "@/features/pregnancy/components/WeeklyTipCard";
-
+import PregnancyHero from "@/features/pregnancy/components/PregnancyHero";
 import { getPregnancyData } from "@/features/pregnancy/services/pregnancyCalculator";
-
+import PregnancyOverviewCards from "@/features/pregnancy/components/PregnancyOverviewCards";
+import CountdownTimer from "@/features/pregnancy/components/CountdownTimer";
 export default function DashboardPage() {
   const pregnancy = getPregnancyData();
 
   return (
     <div className="mx-auto max-w-7xl min-h-screen bg-linear
     -to-br from-yellow-50 via-white to-yellow-100 p-8">
+       <PregnancyHero />
+      
 
-      {/* Greeting */}
-      <div className="mb-10">
-        <h1 className="text-5xl font-black">
-          Good Morning, Betty 🌸
-        </h1>
-
-        <p className="mt-2 text-xl text-gray-600">
-          Pregnancy Week {pregnancy.weeks}
-        </p>
-      </div>
-
-      {/* Statistics */}
-      <div className="mb-8">
-        <PregnancyStats />
-      </div>
-
-      {/* Progress Ring */}
-      <div className="mb-8">
-        <PregnancyProgressRing />
-      </div>
-
+       <div className="mt-8">
+         <PregnancyOverviewCards />
+       </div>
+       <CountdownTimer />
       {/* Today's Focus + Medication */}
       <div className="mb-8 grid gap-6 lg:grid-cols-2">
         <TodaysFocus />
@@ -59,6 +42,7 @@ export default function DashboardPage() {
 
       {/* Weekly Tip */}
       <WeeklyTipCard />
+     
 
     </div>
   );

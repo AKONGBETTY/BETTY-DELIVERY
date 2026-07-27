@@ -3,58 +3,86 @@ import {
   FaHome,
   FaHeartbeat,
   FaBaby,
-  FaPills,
-  FaTint,
   FaCalendarAlt,
   FaBookMedical,
-  FaUsers,
-  FaUser,
+  FaRobot,
+  FaCog,
 } from "react-icons/fa";
-import { GiBabyBottle } from "react-icons/gi";
+
 const links = [
   { to: "/dashboard", label: "Dashboard", icon: <FaHome /> },
-  { to: "/pregnancy", label: "Pregnancy", icon: <GiBabyBottle /> },
-  { to: "/recovery", label: "Recovery", icon: <FaHeartbeat /> },
+  { to: "/pregnancy", label: "Pregnancy", icon: <FaHeartbeat /> },
   { to: "/baby", label: "Baby", icon: <FaBaby /> },
-  { to: "/medication", label: "Medications", icon: <FaPills /> },
-  { to: "/health", label: "Health", icon: <FaTint /> },
+  { to: "/health", label: "Health", icon: <FaHeartbeat /> },
   { to: "/appointments", label: "Appointments", icon: <FaCalendarAlt /> },
-  { to: "/library", label: "Library", icon: <FaBookMedical /> },
-  { to: "/partner", label: "Partner Hub", icon: <FaUsers /> },
-  { to: "/profile", label: "Profile", icon: <FaUser /> },
+  { to: "/planner", label: "Planner", icon: <FaCalendarAlt /> },
+  { to: "/library", label: "Resources", icon: <FaBookMedical /> },
+  { to: "/assistant", label: "AI Assistant", icon: <FaRobot /> },
+  { to: "/settings", label: "Settings", icon: <FaCog /> },
 ];
 
 export default function Sidebar() {
   return (
-    <aside className="w-72 min-h-screen bg-white border-r border-yellow-200">
-      <div className="p-6 border-b border-yellow-200">
-        <h1 className="text-3xl font-black text-yellow-500">
-          🐝 Betty's Delivery
+    <aside className="flex h-screen w-72 flex-col bg-neutral-950 text-white">
+
+      {/* Logo */}
+      <div className="border-b border-neutral-800 p-8">
+
+        <h1 className="text-4xl font-black leading-tight">
+          🐝 Betty's
+          <br />
+          <span className="text-yellow-400">
+            Delivery
+          </span>
         </h1>
 
-        <p className="mt-2 text-sm text-gray-500">
-          Pregnancy • Birth • Recovery
-        </p>
       </div>
 
-      <nav className="p-4 space-y-2">
+      {/* Navigation */}
+
+      <nav className="flex-1 space-y-2 p-5">
+
         {links.map((link) => (
           <NavLink
             key={link.to}
             to={link.to}
             className={({ isActive }) =>
-              `flex items-center gap-3 rounded-xl px-4 py-3 font-medium transition ${
+              `flex items-center gap-4 rounded-2xl px-5 py-4 transition-all ${
                 isActive
-                  ? "bg-yellow-400 text-black"
-                  : "text-gray-700 hover:bg-yellow-100"
+                  ? "bg-yellow-400 font-bold text-black"
+                  : "text-gray-300 hover:bg-neutral-900"
               }`
             }
           >
-            {link.icon}
+            <span className="text-xl">{link.icon}</span>
             {link.label}
           </NavLink>
         ))}
+
       </nav>
+
+      {/* Betty AI */}
+
+      <div className="p-5">
+
+        <div className="rounded-3xl border border-yellow-400/30 bg-neutral-900 p-5">
+
+          <div className="mb-3 text-3xl">
+            🐝
+          </div>
+
+          <h3 className="font-bold">
+            Betty AI
+          </h3>
+
+          <p className="mt-2 text-sm text-gray-400">
+            Your Pregnancy Companion
+          </p>
+
+        </div>
+
+      </div>
+
     </aside>
   );
 }
