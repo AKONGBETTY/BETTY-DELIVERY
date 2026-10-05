@@ -1,12 +1,13 @@
 import type { PregnancyWeek } from "../types/pregnancy";
-
+import Card from "@/components/ui/Card";
 interface Props {
   week: PregnancyWeek;
 }
 
 export default function BabyDevelopmentCard({ week }: Props) {
   return (
-    <div className="rounded-3xl border border-yellow-100 bg-white p-8 shadow-lg transition-all hover:-translate-y-1 hover:shadow-xl">
+    
+    <Card>
 
       <h2 className="text-3xl font-bold">
         🧠 Baby Development
@@ -28,6 +29,6 @@ export default function BabyDevelopmentCard({ week }: Props) {
         {week.babyDevelopment}
       </p>
 
-    </div>
+    </Card>
   );
 }

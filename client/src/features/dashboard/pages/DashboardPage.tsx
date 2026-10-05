@@ -1,49 +1,62 @@
 import TodaysFocus from "../components/TodaysFocus";
 import MedicationReminder from "../components/MedicationReminder";
 import BabyTodayCard from "@/features/pregnancy/components/BabyTodayCard";
-import DueDateCard from "@/features/pregnancy/components/DueDateCard";
+
 import BabyDevelopmentCard from "@/features/pregnancy/components/BabyDevelopmentCard";
 import MotherChangesCard from "@/features/pregnancy/components/MotherChangesCard";
 import WeeklyTipCard from "@/features/pregnancy/components/WeeklyTipCard";
-import PregnancyHero from "@/features/pregnancy/components/PregnancyHero";
+import PregnancyHero from "@/features/pregnancy/components/PregnancyHero"
 import { getPregnancyData } from "@/features/pregnancy/services/pregnancyCalculator";
 import PregnancyOverviewCards from "@/features/pregnancy/components/PregnancyOverviewCards";
 import CountdownTimer from "@/features/pregnancy/components/CountdownTimer";
+import GreetingCard from "../components/GreetingCard";
+
+
 export default function DashboardPage() {
   const pregnancy = getPregnancyData();
 
   return (
-    <div className="mx-auto max-w-7xl min-h-screen bg-linear
-    -to-br from-yellow-50 via-white to-yellow-100 p-8">
-       <PregnancyHero />
-      
+    <div className="mx-auto min-h-screen max-w-7xl bg-linear-to-br from-yellow-50 via-white to-yellow-100 p-8">
 
-       <div className="mt-8">
-         <PregnancyOverviewCards />
-       </div>
-       <CountdownTimer />
-      {/* Today's Focus + Medication */}
-      <div className="mb-8 grid gap-6 lg:grid-cols-2">
-        <TodaysFocus />
-        <MedicationReminder />
-      </div>
+  {/* Greeting */}
+  <GreetingCard />
 
-      {/* Baby Today + Due Date */}
-      <div className="mb-8 grid gap-6 lg:grid-cols-2">
-        <BabyTodayCard week={pregnancy.currentWeek} />
-        <DueDateCard />
-      </div>
+  {/* Hero */}
+  <section className="mt-8">
+    <PregnancyHero />
+  </section>
 
-      {/* Baby Development + Mother's Changes */}
-      <div className="mb-8 grid gap-6 lg:grid-cols-2">
-        <BabyDevelopmentCard week={pregnancy.currentWeek} />
-        <MotherChangesCard week={pregnancy.currentWeek} />
-      </div>
+  {/* Overview */}
+  <section className="mt-8">
+    <PregnancyOverviewCards />
+  </section>
 
-      {/* Weekly Tip */}
-      <WeeklyTipCard />
-     
+  {/* Focus */}
+  <section className="mt-8 grid gap-6 lg:grid-cols-2">
+    <TodaysFocus />
+    <MedicationReminder />
+  </section>
 
-    </div>
+  {/* Pregnancy */}
+  <section className="mt-8 grid gap-6 lg:grid-cols-2">
+    <BabyTodayCard week={pregnancy.currentWeek} />
+    <BabyDevelopmentCard week={pregnancy.currentWeek} />
+  </section>
+
+  {/* Mother */}
+  <section className="mt-8 grid gap-6 lg:grid-cols-2">
+    <MotherChangesCard week={pregnancy.currentWeek} />
+    <CountdownTimer />
+  </section>
+   
+  
+
+
+  {/* Weekly Tip */}
+  <section className="mt-8">
+    <WeeklyTipCard />
+  </section>
+
+</div>
   );
 }

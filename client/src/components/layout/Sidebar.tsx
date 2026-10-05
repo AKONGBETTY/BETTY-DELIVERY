@@ -3,22 +3,64 @@ import {
   FaHome,
   FaHeartbeat,
   FaBaby,
+  FaSuitcase,
+  FaRunning,
+  FaAppleAlt,
+  FaPills,
   FaCalendarAlt,
   FaBookMedical,
-  FaRobot,
-  FaCog,
+  FaUsers,
+  FaUserCircle,
 } from "react-icons/fa";
 
-const links = [
-  { to: "/dashboard", label: "Dashboard", icon: <FaHome /> },
-  { to: "/pregnancy", label: "Pregnancy", icon: <FaHeartbeat /> },
-  { to: "/baby", label: "Baby", icon: <FaBaby /> },
-  { to: "/health", label: "Health", icon: <FaHeartbeat /> },
-  { to: "/appointments", label: "Appointments", icon: <FaCalendarAlt /> },
-  { to: "/planner", label: "Planner", icon: <FaCalendarAlt /> },
-  { to: "/library", label: "Resources", icon: <FaBookMedical /> },
-  { to: "/assistant", label: "AI Assistant", icon: <FaRobot /> },
-  { to: "/settings", label: "Settings", icon: <FaCog /> },
+const sections = [
+  {
+    title: "HOME",
+    links: [
+      { to: "/dashboard", label: "Dashboard", icon: <FaHome /> },
+    ],
+  },
+
+  {
+    title: "PREGNANCY",
+    links: [
+      { to: "/pregnancy", label: "Pregnancy", icon: <FaHeartbeat /> },
+      { to: "/baby", label: "Baby", icon: <FaBaby /> },
+      { to: "/hospital-bag", label: "Hospital Bag", icon: <FaSuitcase /> },
+      { to: "/exercise", label: "Exercise", icon: <FaRunning /> },
+      { to: "/nutrition", label: "Nutrition", icon: <FaAppleAlt /> },
+    ],
+  },
+
+  {
+    title: "HEALTH",
+    links: [
+      { to: "/medication", label: "Medication", icon: <FaPills /> },
+      { to: "/health", label: "Health", icon: <FaHeartbeat /> },
+      { to: "/appointments", label: "Appointments", icon: <FaCalendarAlt /> },
+    ],
+  },
+
+  {
+    title: "FAMILY",
+    links: [
+      { to: "/partner", label: "Partner", icon: <FaUsers /> },
+    ],
+  },
+
+  {
+    title: "RESOURCES",
+    links: [
+      { to: "/library", label: "Library", icon: <FaBookMedical /> },
+    ],
+  },
+
+  {
+    title: "ACCOUNT",
+    links: [
+      { to: "/profile", label: "Profile", icon: <FaUserCircle /> },
+    ],
+  },
 ];
 
 export default function Sidebar() {
@@ -26,6 +68,7 @@ export default function Sidebar() {
     <aside className="flex h-screen w-72 flex-col bg-neutral-950 text-white">
 
       {/* Logo */}
+
       <div className="border-b border-neutral-800 p-8">
 
         <h1 className="text-4xl font-black leading-tight">
@@ -40,23 +83,37 @@ export default function Sidebar() {
 
       {/* Navigation */}
 
-      <nav className="flex-1 space-y-2 p-5">
+      <nav className="flex-1 overflow-y-auto px-5 py-4">
 
-        {links.map((link) => (
-          <NavLink
-            key={link.to}
-            to={link.to}
-            className={({ isActive }) =>
-              `flex items-center gap-4 rounded-2xl px-5 py-4 transition-all ${
-                isActive
-                  ? "bg-yellow-400 font-bold text-black"
-                  : "text-gray-300 hover:bg-neutral-900"
-              }`
-            }
-          >
-            <span className="text-xl">{link.icon}</span>
-            {link.label}
-          </NavLink>
+        {sections.map((section) => (
+          <div key={section.title} className="mb-6">
+
+            <p className="mb-2 px-3 text-xs font-bold uppercase tracking-widest text-gray-500">
+              {section.title}
+            </p>
+
+            <div className="space-y-2">
+
+              {section.links.map((link) => (
+                <NavLink
+                  key={link.to}
+                  to={link.to}
+                  className={({ isActive }) =>
+                    `flex items-center gap-4 rounded-2xl px-5 py-4 transition-all ${
+                      isActive
+                        ? "bg-yellow-400 font-bold text-black"
+                        : "text-gray-300 hover:bg-neutral-900"
+                    }`
+                  }
+                >
+                  <span className="text-xl">{link.icon}</span>
+                  {link.label}
+                </NavLink>
+              ))}
+
+            </div>
+
+          </div>
         ))}
 
       </nav>

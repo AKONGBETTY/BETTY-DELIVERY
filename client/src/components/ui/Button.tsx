@@ -1,36 +1,30 @@
-import type { ButtonHTMLAttributes, ReactNode } from "react";
-import clsx from "clsx";
+import type { ButtonHTMLAttributes } from "react";
 
-type ButtonVariant = "primary" | "secondary" | "outline";
-
-interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  children: ReactNode;
-  variant?: ButtonVariant;
+interface Props
+  extends ButtonHTMLAttributes<HTMLButtonElement> {
+  children: React.ReactNode;
 }
 
 export default function Button({
   children,
-  variant = "primary",
-  className,
+  className = "",
   ...props
-}: ButtonProps) {
+}: Props) {
   return (
     <button
-      className={clsx(
-        "rounded-xl px-6 py-3 font-semibold transition duration-200",
-
-        variant === "primary" &&
-          "bg-yellow-500 text-black hover:bg-yellow-400",
-
-        variant === "secondary" &&
-          "bg-black text-white hover:bg-gray-800",
-
-        variant === "outline" &&
-          "border-2 border-yellow-500 text-yellow-600 hover:bg-yellow-50",
-
-        className
-      )}
       {...props}
+      className={`
+        rounded-2xl
+        bg-yellow-400
+        px-6
+        py-3
+        font-bold
+        text-black
+        transition-all
+        hover:scale-105
+        hover:bg-yellow-300
+        ${className}
+      `}
     >
       {children}
     </button>

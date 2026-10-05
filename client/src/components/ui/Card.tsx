@@ -1,5 +1,4 @@
 import type { ReactNode } from "react";
-import clsx from "clsx";
 
 interface CardProps {
   children: ReactNode;
@@ -8,14 +7,23 @@ interface CardProps {
 
 export default function Card({
   children,
-  className,
+  className = "",
 }: CardProps) {
   return (
     <div
-      className={clsx(
-        "rounded-3xl border border-yellow-100 bg-white p-6 shadow-sm",
-        className
-      )}
+      className={`
+        rounded-3xl
+        border
+        border-yellow-100
+        bg-white
+        p-8
+        shadow-lg
+        transition-all
+        duration-300
+        hover:-translate-y-1
+        hover:shadow-xl
+        ${className}
+      `}
     >
       {children}
     </div>
