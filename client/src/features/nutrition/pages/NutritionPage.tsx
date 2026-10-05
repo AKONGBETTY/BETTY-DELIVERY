@@ -1,36 +1,16 @@
 import { useEffect, useMemo, useState } from "react";
 import Card from "@/components/ui/Card";
 import SectionTitle from "@/components/ui/SectionTitle";
-
-type Meal = {
-  name: string;
-  items: string[];
-  calories: number;
-  color: string;
-};
-
-const STORAGE_KEY = "betty-meal-plan";
-
-const defaultMeals: Meal[] = [
-  {
-    name: "Breakfast",
-    items: ["Oatmeal with berries", "Greek yogurt", "Chia seeds"],
-    calories: 420,
-    color: "bg-yellow-100",
-  },
-  {
-    name: "Lunch",
-    items: ["Quinoa bowl", "Roasted chicken", "Spinach and avocado"],
-    calories: 560,
-    color: "bg-amber-100",
-  },
-  {
-    name: "Dinner",
-    items: ["Salmon", "Sweet potato", "Steamed greens"],
-    calories: 610,
-    color: "bg-orange-100",
-  },
-];
+import { useAuth } from "@/context/AuthContext";
+import {
+  defaultMeals,
+  fetchMealsForUser,
+  parseItems,
+  readMealsFromStorage,
+  saveMealsForUser,
+  saveMealsToStorage,
+  type NutritionMeal,
+} from "@/features/nutrition/services/nutrition";
 
 const goals = [
   { label: "Protein", value: "110g", detail: "Target reached" },
@@ -47,56 +27,58 @@ const colorOptions = [
   "bg-sky-100",
 ];
 
-function readMeals(): Meal[] {
-  if (typeof window === "undefined") {
-    return defaultMeals;
-  }
-
-  try {
-    const savedMeals = window.localStorage.getItem(STORAGE_KEY);
-    if (!savedMeals) {
-      return defaultMeals;
-    }
-
-    const parsedMeals = JSON.parse(savedMeals) as Meal[];
-    if (!Array.isArray(parsedMeals) || parsedMeals.length === 0) {
-      return defaultMeals;
-    }
-
-    return parsedMeals.map((meal) => ({
-      name: meal.name || "New meal",
-      items: Array.isArray(meal.items) ? meal.items.filter(Boolean) : ["Add item"],
-      calories: Number(meal.calories) || 0,
-      color: colorOptions.includes(meal.color) ? meal.color : "bg-yellow-100",
-    }));
-  } catch {
-    return defaultMeals;
-  }
-}
-
-function parseItems(value: string): string[] {
-  return value
-    .split(",")
-    .map((item) => item.trim())
-    .filter(Boolean);
-}
-
 export default function NutritionPage() {
-  const [meals, setMeals] = useState<Meal[]>(readMeals);
+  const { user } = useAuth();
+  const [meals, setMeals] = useState<NutritionMeal[]>(defaultMeals);
   const [isAdmin, setIsAdmin] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      window.localStorage.setItem(STORAGE_KEY, JSON.stringify(meals));
+    let active = true;
+
+    const loadMeals = async () => {
+      try {
+        const nextMeals = await fetchMealsForUser(user?.id);
+        if (active) {
+          setMeals(nextMeals);
+        }
+      } catch {
+        if (active) {
+          setMeals(readMealsFromStorage());
+        }
+      } finally {
+        if (active) {
+          setIsLoaded(true);
+        }
+      }
+    };
+
+    void loadMeals();
+
+    return () => {
+      active = false;
+    };
+  }, [user?.id]);
+
+  useEffect(() => {
+    if (!isLoaded) {
+      return;
     }
-  }, [meals]);
+
+    if (user?.id) {
+      void saveMealsForUser(user.id, meals).catch(() => saveMealsToStorage(meals));
+      return;
+    }
+
+    saveMealsToStorage(meals);
+  }, [isLoaded, meals, user?.id]);
 
   const totalCalories = useMemo(
     () => meals.reduce((sum, meal) => sum + Number(meal.calories || 0), 0),
     [meals],
   );
 
-  const updateMeal = (index: number, field: keyof Meal, value: string | number | string[]) => {
+  const updateMeal = (index: number, field: keyof NutritionMeal, value: string | number | string[]) => {
     setMeals((currentMeals) =>
       currentMeals.map((meal, mealIndex) => {
         if (mealIndex !== index) {

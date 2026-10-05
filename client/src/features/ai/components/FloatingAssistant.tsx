@@ -81,7 +81,7 @@ export default function FloatingAssistant() {
       </button>
 
       {open && (
-        <div className="fixed bottom-24 right-6 z-50 w-[22rem] rounded-3xl border border-yellow-200 bg-white shadow-2xl">
+        <div className="fixed bottom-24 right-6 z-50 w-88 rounded-3xl border border-yellow-200 bg-white shadow-2xl">
           <div className="rounded-t-3xl bg-yellow-400 p-5">
             <h2 className="text-xl font-bold">🐝 Betty AI</h2>
             <p className="text-sm">Your Pregnancy & Postpartum Companion</p>

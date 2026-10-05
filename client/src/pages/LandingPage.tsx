@@ -3,7 +3,7 @@ import Button from "@/components/ui/Button";
 
 export default function LandingPage() {
   return (
-    <section className="bg-gradient-to-br from-yellow-50 via-white to-amber-50">
+    <section className="bg-linear-to-br from-yellow-50 via-white to-amber-50">
       <div className="mx-auto flex min-h-[90vh] max-w-7xl items-center px-6 py-12">
         <div className="max-w-3xl">
           <p className="mb-4 font-semibold text-yellow-600">🐝 Pregnancy • Delivery • Postpartum</p>

@@ -27,7 +27,7 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-yellow-50 via-white to-amber-50 p-6">
+    <div className="flex min-h-screen items-center justify-center bg-linear-to-br from-yellow-50 via-white to-amber-50 p-6">
       <div className="w-full max-w-md rounded-3xl border border-yellow-200 bg-white p-8 shadow-xl">
         <div className="mb-8 text-center">
           <div className="mb-3 text-4xl">🌼</div>
